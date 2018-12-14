@@ -1,0 +1,32 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="YXM_136_ODATACRUD_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="ProjectInfo" sap:content-version="1">
+				<Key><PropertyRef Name="Projectid"/></Key><Property Name="Projectid" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Business event" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Projectnaam" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="30 Characters" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="30 Characters" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Projectmanager" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="30 Characters" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="30 Characters" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Begindatum" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Einddatum" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="MembersInfo" sap:content-version="1">
+				<Key><PropertyRef Name="Memberid"/></Key><Property Name="Memberid" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Business event" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Naam" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="30 Characters" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Functie" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="30 Characters" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="ProjectDetInfo" sap:content-version="1">
+				<Key><PropertyRef Name="Projdetailid"/></Key><Property Name="Projdetailid" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Business event" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Projectid" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Business event" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Memberid" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Business event" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Evaluatie" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Character 100" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityContainer Name="YXM_136_ODATACRUD_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="ProjectInfoSet" EntityType="YXM_136_ODATACRUD_SRV.ProjectInfo" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="MembersInfoSet" EntityType="YXM_136_ODATACRUD_SRV.MembersInfo" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:content-version="1"/><EntitySet Name="ProjectDetInfoSet" EntityType="YXM_136_ODATACRUD_SRV.ProjectDetInfo" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:content-version="1"/></EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self"
+				href="http://r41z.ucc.ovgu.de:443/sap/opu/odata/SAP/YXM_136_ODATACRUD_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version"
+				href="http://r41z.ucc.ovgu.de:443/sap/opu/odata/SAP/YXM_136_ODATACRUD_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
