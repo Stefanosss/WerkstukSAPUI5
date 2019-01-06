@@ -11,7 +11,7 @@
                                     <Label text="Name" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
+                                    <Input id="Naam" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -19,13 +19,7 @@
                                     <Label text="Function" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <ComboBox editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
-                                        <items>
-                                            <core:Item text="Item" enabled="true" key="Item"/>
-                                            <core:Item text="Item" enabled="true" key="Item"/>
-                                            <core:Item text="Item" enabled="true" key="Item"/>
-                                        </items>
-                                    </ComboBox>
+                                    <Input id="Functie" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
                         </form:formElements>
@@ -39,7 +33,7 @@
         </content>
         <beginButton/>
         <buttons>
-            <Button text="OK" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+            <Button text="Create" type="Default" press="_oDataCall" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
             <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress"/>
         </buttons>
         <customHeader/>

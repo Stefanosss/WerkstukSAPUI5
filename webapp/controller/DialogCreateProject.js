@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/base/ManagedObject",
 	"sap/m/MessageBox",
 	"./utilities",
-	"sap/ui/core/routing/History"
-], function(ManagedObject, MessageBox, Utilities, History) {
+	"sap/ui/core/routing/History",
+	"sap/m/MessageToast"
+], function(ManagedObject, MessageBox, Utilities, History,MessageToast) {
 
 	return ManagedObject.extend("com.sap.build.standard.mobileEnterpriseProject.controller.DialogCreateProject", {
 		constructor: function(oView) {
@@ -18,6 +19,56 @@ sap.ui.define([
 
 		getView: function() {
 			return this._oView;
+		},
+		_ok:function(){
+			var bedrijfid = this.getView().byId("bedrijfid").getSelectedKey();
+            var projectnaam =this.getView().byId("projnaam").mProperties.value;
+			var view = this.getView();
+			var desc = this.getView().byId("projdes").mProperties.value;
+			var projm = this.getView().byId("projman").mProperties.value;
+			var status =this.getView().byId("status").mProperties.value;
+			var date1 =this.getView().byId("date1").mProperties.value;
+			var date2 =this.getView().byId("date2").mProperties.value;
+                
+            this.getView().getModel().read("/ProjectInfoSet",{
+            	success: function(resp)
+            	{
+            		var last = resp.results.length - 1;
+            		var id = resp.results[last].Projectid;
+            		id = parseInt(id);
+            		id++;
+            		
+            		 var properties = {
+                	"Projectid": id +"",
+                	"Bedrijfid" : bedrijfid,
+                	"Projectnaam":projectnaam,
+                	"Description":desc,
+                	"Projectmanager":projm,
+                	"Status":status,
+                	"Begindatum":date1,
+                	"Einddatum":date2
+               
+                     };
+            		
+            		view.getModel().create("/ProjectInfoSet",properties,
+        			 {
+        		     success : function(data)
+        		     {
+        		     	this.close();
+        		         MessageToast.show("SaveDone!");
+        		        
+        		         
+        		     },
+
+        		     error : function(data)
+        		     {
+        		         MessageToast.show("Error");
+        		     }
+        				});
+        		 		
+        		 	}
+            	
+            });
 		},
 
 		getControl: function() {

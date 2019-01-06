@@ -45,7 +45,7 @@
                     <ColumnListItem type="Active">
                         <cells>
                             <ObjectIdentifier title="" text="2" titleActive="false" visible="true"/>
-                            <Text text="Jawad" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                            <Text text="Naam" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                             <Text text="Project manager" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                         </cells>
                     </ColumnListItem>
@@ -58,6 +58,56 @@
                     </ColumnListItem>
                 </items>
             </Table>
+            	<Table id="TeamRolIDList" growing="true" growingThreshold="10" items="{              path: '/MembersInfoSet'       ,       parameters:{expand : 'teamlid,rol'}       }">
+					<headerToolbar>
+				<Toolbar>
+					<Title id="SalesOrdersTitle" text="Teamleden aan het project toegewezen" titleStyle="H2"/>
+						<ToolbarSpacer/>
+									<SearchField id="searchField" width="20%" placeholder="{i18n>searchFieldPlaceholder}" search="filterS"/>
+														<Button
+										id="addUserButton"
+										icon="sap-icon://add"
+										tooltip="{i18n>createButtonText}"
+										enabled="{= !${appView>/hasUIChanges}}"
+										press="onCreate">
+										<layoutData>
+											<OverflowToolbarLayoutData priority="NeverOverflow"/>
+										</layoutData>
+									</Button>
+								
+				</Toolbar>
+			</headerToolbar>
+						<columns>
+							<Column id="userNameColumn">
+								<Text text="Id"/>
+							</Column>
+							<Column id="firstNameColumn">
+								<Text text="ProjectId"/>
+							</Column>
+							<Column id="lastNameColumn">
+								<Text text="Teamlidid"/>
+							</Column>
+							<Column id="ageColumn">
+								<Text text="Rolid"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+								<Text text="{Id}"/>
+								</cells>
+								<cells>
+									<Input value="{Projectid}"/>
+								</cells>
+								<cells>
+									<Input value="{teamlid/Naam}"/>
+								</cells>
+								<cells>
+									<Input value="{rol/Rol}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
         </content>
         <footer>
             <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">

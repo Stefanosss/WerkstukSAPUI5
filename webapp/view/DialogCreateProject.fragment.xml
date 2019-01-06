@@ -11,7 +11,15 @@
                                     <Label text="Project Name" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
+                                    <Input type="Text" id="projnaam" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:fields>
+            								<Label text="Bedrijf"/>
+            								<ComboBox id="bedrijfid"  items="{ path: '/BedrijfInfoSet' }">
+                						<core:Item key="{Bedrijfid}" text="{Bedrijfnaam}"/>
+        							 </ComboBox>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -19,21 +27,15 @@
                                     <Label text="Project description" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
+                                    <Input type="Text" id="projdes" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
-                            <form:FormElement visible="true">
-                                <form:label>
-                                    <Label text="Project manager" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                </form:label>
+                             <form:FormElement visible="true">
                                 <form:fields>
-                                    <ComboBox editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
-                                        <items>
-                                            <core:Item text="Tom" enabled="true" key="Tom"/>
-                                            <core:Item text="Piet" enabled="true" key="Piet"/>
-                                            <core:Item text="Bavo" enabled="true" key="Bavo"/>
-                                        </items>
-                                    </ComboBox>
+            								<Label text="Projectmanager"/>
+            								<ComboBox id="projman"  items="{ path: '/MembersInfoSet' }">
+                						<core:Item key="{Id}" text="{Voornaam} {Naam}"/>
+        							 </ComboBox>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -41,7 +43,7 @@
                                     <Label text="Status" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <ComboBox editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                    <ComboBox id="status" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
                                         <items>
                                             <core:Item text="Started" enabled="true" key="Started"/>
                                             <core:Item text="In progress" enabled="true" key="In progress"/>
@@ -56,26 +58,13 @@
                                 </form:label>
                                 <form:fields/>
                             </form:FormElement>
-                            <form:FormElement visible="true">
-                                <form:label>
-                                    <Label text="Members" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                </form:label>
-                                <form:fields>
-                                    <ComboBox editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
-                                        <items>
-                                            <core:Item text="Tom" enabled="true" key="Tom"/>
-                                            <core:Item text="Piet" enabled="true" key="Piet"/>
-                                            <core:Item text="Bavo" enabled="true" key="Bavo"/>
-                                        </items>
-                                    </ComboBox>
-                                </form:fields>
-                            </form:FormElement>
+                           
                             <form:FormElement visible="true">
                                 <form:label>
                                     <Label text="Begin date" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <DateTimePicker width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMddHHmmss"/>
+                                    <DateTimePicker id="date1" width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMddHHmmss"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -83,7 +72,7 @@
                                     <Label text="End date" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <DateTimePicker width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMddHHmmss"/>
+                                    <DateTimePicker id="date2" width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMddHHmmss"/>
                                 </form:fields>
                             </form:FormElement>
                         </form:formElements>
@@ -97,7 +86,7 @@
         </content>
         <beginButton/>
         <buttons>
-            <Button text="OK" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+            <Button text="OK" press="_ok" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
             <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress"/>
         </buttons>
         <customHeader/>

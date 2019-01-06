@@ -10,7 +10,7 @@
                             <Table width="auto" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin" items="{
 					path: '/ProjectInfoSet',
 					sorter: {
-						path: 'Projectnaam',
+						path: 'Projectid',
 						descending: false
 					},
 					groupHeaderFactory: '.createGroupHeader'
@@ -18,12 +18,7 @@
                                 <infoToolbar/>
                                 <headerToolbar/>
                                 <columns>
-                                    <Column width="60px" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
-                                        <header>
-                                            <Text text="ProjectID" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                        </header>
-                                        <footer/>
-                                    </Column>
+                                    
                                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                         <header>
                                             <Text text="Project Name" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
@@ -76,7 +71,7 @@
                                 <items>
                                     <ColumnListItem type="Active">
                                         <cells>
-                                            <ObjectNumber number="{Projectid}" unit="" emphasized="true" state="None"/>
+                                          
                                             <Text text="{Projectnaam}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <TextArea value="{Description}" rows="5" cols="50" maxLength="0" wrapping="None" enabled="true" visible="true" editable="false"/>
                                             <Text text="{Projectmanager}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
@@ -103,7 +98,7 @@
                             <Table width="auto" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="false" class="sapUiResponsiveMargin" items="{
 					path: '/MembersInfoSet',
 					sorter: {
-						path: 'Naam',
+						path: 'Memberid',
 						descending: false
 					},
 					groupHeaderFactory: '.createGroupHeader'
@@ -111,12 +106,7 @@
                                 <infoToolbar/>
                                 <headerToolbar/>
                                 <columns>
-                                    <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
-                                        <header>
-                                            <Text text="Member ID" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                        </header>
-                                        <footer/>
-                                    </Column>
+                                    
                                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                         <header>
                                             <Text text="Name" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
@@ -139,7 +129,7 @@
                                 <items>
                                     <ColumnListItem type="Active">
                                         <cells>
-                                            <ObjectIdentifier title="" text="{Memberid}" titleActive="false" visible="true"/>
+                                           
                                             <Text text="{Naam}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <Text text="{Functie}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <Button text="Edit" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>

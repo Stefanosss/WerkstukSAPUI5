@@ -15,7 +15,7 @@ sap.ui.define([
 		exit: function() {
 			delete this._oView;
 		},
-
+		
 		getView: function() {
 			return this._oView;
 		},
@@ -64,6 +64,7 @@ sap.ui.define([
 
 		},
 		_onButtonPress: function() {
+			
 
 			this.close();
 

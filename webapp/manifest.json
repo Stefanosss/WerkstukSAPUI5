@@ -110,6 +110,20 @@
 					"viewId": "Page2",
 					"viewLevel": 2,
 					"transition": "slide"
+				},
+				"page2": {
+					"viewId": "page2",
+					"viewName": "Page2"
+				},
+				"editProject" : {
+						"viewId": "editProject",
+					"viewName": "EditProject"
+				},	
+				"object": {
+					"viewName": "Detail",
+					"viewId": "detail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
 				}
 			},
 			"routes": [
@@ -132,6 +146,25 @@
 					"name": "Page2",
 					"target": [
 						"Page2"
+					]
+				},
+				 
+			 {
+				"pattern": "page2/{objectId}",
+				"name": "page2",
+				"target": "page2"
+			},
+			{
+				"pattern": "editProject/{objectId}",
+				"name": "editProject",
+				"target": "editProject"
+			},
+				{
+					"pattern": "ProjectInfoSet/{objectId}",
+					"name": "object",
+					"target": [
+						"master",
+						"object"
 					]
 				}
 			]

@@ -59,7 +59,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			oDialog.open();
 
 		},
-		_onButtonPress1: function(oEvent) {
+		/*_onButtonPress1: function(oEvent) {
 
 			var sPopoverName = "PopoverShowProjectMembers";
 			this.mPopovers = this.mPopovers || {};
@@ -73,16 +73,45 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 				// For navigation.
 				oPopover.setRouter(this.oRouter);
+				
 			}
 
 			var oSource = oEvent.getSource();
 
-			oPopover.open(oSource);
+			oPopover.open(oSource);s
+			
 
+		},*/
+		_onButtonPress1: function (oEvent) {
+				var oList = oEvent.getSource(),
+					bSelected = oEvent.getParameter("selected");
+
+				// skip navigation when deselecting an item in multi selection mode
+				if (!(oList.getModel() === "MultiSelect" && !bSelected)) {
+					// get the list item, either from the listItem parameter or from the event's source itself (will depend on the device-dependent mode).
+					this._showDetail(oEvent.getParameter("listItem") || oEvent.getSource());
+				}
 		},
-		_onButtonPress2: function() {
+			_showDetail : function (oItem) {
+		//		var bReplace = !Device.system.phone;
+				// set the layout property of FCL control to show two columns
+			//	this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+				this.oRouter.navTo("Page2", {
+					objectId : oItem.getBindingContext().getProperty("Projectid")
+				}, false);
+			},
+				_showDetail2 : function (oItem) {
+			var bReplace = !Device.system.phone;
+			// set the layout property of FCL control to show two columns
+			this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+			this.getRouter().navTo("object", {
+				objectId : oItem.getBindingContext().getProperty("Projectid")
+			}, bReplace);
+		},
+		
+		//_onButtonPress2: function() {
 
-			var sDialogName = "DialogEditProject";
+	/*		var sDialogName = "DialogEditProject";
 			this.mDialogs = this.mDialogs || {};
 			var oDialog = this.mDialogs[sDialogName];
 
@@ -93,9 +122,29 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				// For navigation.
 				oDialog.setRouter(this.oRouter);
 			}
-			oDialog.open();
+			oDialog.open();*/
+			
+			
 
+	//	},
+			_onButtonPress2: function (oEvent) {
+				var oList = oEvent.getSource(),
+					bSelected = oEvent.getParameter("selected");
+
+				// skip navigation when deselecting an item in multi selection mode
+				if (!(oList.getModel() === "MultiSelect" && !bSelected)) {
+					// get the list item, either from the listItem parameter or from the event's source itself (will depend on the device-dependent mode).
+					this._showDetail1(oEvent.getParameter("listItem") || oEvent.getSource());
+				}
 		},
+			_showDetail1 : function (oItem) {
+		//		var bReplace = !Device.system.phone;
+				// set the layout property of FCL control to show two columns
+			//	this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+				this.oRouter.navTo("editProject", {
+					objectId : oItem.getBindingContext().getProperty("Projectid")
+				}, false);
+			},
 		_onButtonPress3: function() {
 
 			var sDialogName = "DialogCreateMember";
