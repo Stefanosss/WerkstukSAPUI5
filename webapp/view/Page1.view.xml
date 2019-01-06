@@ -7,12 +7,11 @@
                         <content>
                             <Button text="Create Project" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" class="sapUiResponsiveMargin" press="_onButtonPress"/>
                             <SearchField placeholder="Search" showSearchButton="true" visible="true" width="auto" class="sapUiResponsiveMargin"/>
+                            
+                     
+                            
                             <Table width="auto" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin" items="{
 					path: '/ProjectInfoSet',
-					sorter: {
-						path: 'Projectid',
-						descending: false
-					},
 					groupHeaderFactory: '.createGroupHeader'
 				}">
                                 <infoToolbar/>
@@ -25,7 +24,7 @@
                                         </header>
                                         <footer/>
                                     </Column>
-                                    <Column width="250px" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                    <Column width="150px" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
                                         <header>
                                             <Text text="Description" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                         </header>
@@ -76,17 +75,17 @@
                                             <TextArea value="{Description}" rows="5" cols="50" maxLength="0" wrapping="None" enabled="true" visible="true" editable="false"/>
                                             <Text text="{Projectmanager}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <Text text="{Status}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                            <DatePicker value="{Begindatum}" width="132px" displayFormat="short" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
-                                            <DatePicker value="{Einddatum}" width="132px" displayFormat="short" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
+                                            <DatePicker value="{Begindatum}" editable="false" width="132px" displayFormat="short" enabled="true" visible="true"  valueFormat="yyyy-MM-dd"/>
+                                            <DatePicker value="{Einddatum}" editable="false" width="132px" displayFormat="short" enabled="true" visible="true" valueFormat="yyyy-MM-dd"/>
                                             <Button text="Members" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress1"/>
-                                            <Button text="Edit" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress2"/>
+                                            <Button  text="{Projectid}" type="Default" iconFirst="true" width="10px" enabled="true" visible="true" iconDensityAware="false" press="_goEdit"/>
                                             <layout:HorizontalLayout>
                                                 <layout:content/>
                                             </layout:HorizontalLayout>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
-                            </Table>
+                            </Table> 
                         </content>
                     </IconTabFilter>
                     <IconTabSeparator icon="" iconDensityAware="false"/>
@@ -133,6 +132,55 @@
                                             <Text text="{Naam}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <Text text="{Functie}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             <Button text="Edit" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                             <Table width="auto" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="false" class="sapUiResponsiveMargin" items="{
+					path: '/EvaluatieInfoSet',
+					sorter: {
+						path: 'Evaluatieid',
+						descending: false
+					},
+					groupHeaderFactory: '.createGroupHeader'
+				}">
+                                <infoToolbar/>
+                                <headerToolbar/>
+                                <columns>
+                                    
+                                    <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <header>
+                                            <Text text="Evaluatieid" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </header>
+                                        <footer/>
+                                    </Column>
+                                    <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <header>
+                                            <Text text="Projectid" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </header>
+                                        <footer/>
+                                    </Column>
+                                    <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <header>
+                                            <Text text="Memberid" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </header>
+                                        <footer/>
+                                    </Column>
+                                     <Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                        <header>
+                                            <Text text="Score" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </header>
+                                        <footer/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Active">
+                                        <cells>
+                                           
+                                            <Text text="{Evaluatieid}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            <Text text="{Projectid}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            <Text text="{Memberid}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            <Text text="{Score}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>

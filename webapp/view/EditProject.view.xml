@@ -2,13 +2,14 @@
     <Page showHeader="true" title="Manage members" showFooter="true" showNavButton="false">
         <content>
         <Label text="{Projectid}"></Label>
+          <Label text="fff"></Label>
         <Input value="{Projectid}"></Input>
         </content>
         <footer>
             <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
                 <content>
                     <ToolbarSpacer width=""/>
-                    <Button text="" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <Button text="ok" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                 </content>
             </OverflowToolbar>
         </footer>

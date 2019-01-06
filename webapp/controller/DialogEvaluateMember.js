@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/base/ManagedObject",
 	"sap/m/MessageBox",
 	"./utilities",
-	"sap/ui/core/routing/History"
-], function(ManagedObject, MessageBox, Utilities, History) {
+	"sap/ui/core/routing/History",
+	"sap/m/MessageToast"
+], function(ManagedObject, MessageBox, Utilities, History,MessageToast) {
 
 	return ManagedObject.extend("com.sap.build.standard.mobileEnterpriseProject.controller.DialogEvaluateMember", {
 		constructor: function(oView) {
@@ -18,6 +19,51 @@ sap.ui.define([
 
 		getView: function() {
 			return this._oView;
+		},
+		
+		_ok:function(){
+			var member = this.getView().byId("memb").getSelectedKey();
+            var projectid =this.getView().byId("project").getSelectedKey();
+			var view = this.getView();
+			var rate = this.getView().byId("rate").mProperties.value;
+			
+                
+            this.getView().getModel().read("/EvaluatieInfoSet",{
+            	success: function(resp)
+            	{
+            		var last = resp.results.length - 1;
+            		var id = resp.results[last].Projectid;
+            		id = parseInt(id);
+            		id++;
+            		
+            		 var properties = {
+                	"Evaluatieid": id +"",
+                	"Projectid" : projectid,
+                	"Memberid":member,
+                	"Score":rate,
+                	
+               
+                     };
+            		
+            		view.getModel().create("/EvaluatieInfoSet",properties,
+        			 {
+        		     success : function(data)
+        		     {
+        		     	this.close();
+        		         MessageToast.show("SaveDone!");
+        		        
+        		         
+        		     },
+
+        		     error : function(data)
+        		     {
+        		         MessageToast.show("Error");
+        		     }
+        				});
+        		 		
+        		 	}
+            	
+            });
 		},
 
 		getControl: function() {

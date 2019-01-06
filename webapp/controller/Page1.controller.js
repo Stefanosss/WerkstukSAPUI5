@@ -1,3 +1,4 @@
+/*eslint-disable no-console, no-alert */
 sap.ui.define(["sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
 	"./DialogCreateProject", "./DialogCreateMember", "./DialogEditMember", "./DialogEvaluateMember", "./PopoverShowProjectMembers", "./DialogEditProject",
@@ -43,6 +44,27 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
+		 onInit: function() {
+        var model = new sap.ui.model.json.JSONModel();
+        model.setData({ 
+          arrayName: [
+            { firstName: "Albert", lastName: "Einstein", age: 76, born: 1879 },
+            { firstName: "Thomas", lastName: "Edison", age: 84, born: 1847 },
+            { firstName: "Neil", lastName: "Armstrong", age: 82, born: 1930 }
+          ]
+        });
+        this.getView().setModel(model, "modelPath");
+      },
+      
+      rowClicked: function(oEventArgs) {
+        var row = oEventArgs.getSource();
+        var context = row.getBindingContext("modelPath");
+
+        // get binding object (reference to an object of the original array)
+        var person = context.oModel.getProperty(context.sPath);
+        
+        MessageToast.show(person.firstName + " was born in " + person.born + ".")
+      },
 		_onButtonPress: function() {
 
 			var sDialogName = "DialogCreateProject";
@@ -127,15 +149,34 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			
 
 	//	},
-			_onButtonPress2: function (oEvent) {
-				var oList = oEvent.getSource(),
+			_goEdit: function (oEvent) {
+				
+				
+			var row = oEvent.getSource();
+			console.log(row);
+        	var context = row.getBindingContext("/ProjectInfoSet");
+        	// get binding object (reference to an object of the original array)
+        	var param = context.oModel.getProperty(context.sPath);
+        	
+			if (!this.oAddfeedbackDialog) {
+				this.oAddfeedbackDialog = sap.ui.xmlfragment("be.ehb.mobile.EnterpriseFlexso.view.AddFeedbackDialog", this);
+				this.getView().addDependent(this.oAddfeedbackDialog);
+			}
+				
+				
+	
+				
+				
+				
+				
+				/*var oList = oEvent.getSource(),
 					bSelected = oEvent.getParameter("selected");
 
 				// skip navigation when deselecting an item in multi selection mode
 				if (!(oList.getModel() === "MultiSelect" && !bSelected)) {
 					// get the list item, either from the listItem parameter or from the event's source itself (will depend on the device-dependent mode).
 					this._showDetail1(oEvent.getParameter("listItem") || oEvent.getSource());
-				}
+				}*/
 		},
 			_showDetail1 : function (oItem) {
 		//		var bReplace = !Device.system.phone;

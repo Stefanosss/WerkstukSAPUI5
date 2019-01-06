@@ -1,98 +1,152 @@
 sap.ui.define(["sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
-	"./DialogCreateProject", "./DialogCreateMember", "./DialogEditMember", "./DialogEvaluateMember", "./PopoverShowProjectMembers", "./DialogEditProject",
+	"./DialogAddMemberToProject", "./DialogDeleteMemberProject",
 	"./utilities",
-	"sap/ui/core/routing/History","sap/ui/model/json/JSONModel"
-], function(BaseController, MessageBox, DialogCreateProject, DialogCreateMember, DialogEditMember, DialogEvaluateMember, PopoverShowProjectMembers, DialogEditProject, Utilities, History,JSONModel) {
+	"sap/ui/core/routing/History"
+], function(BaseController, MessageBox, DialogAddMemberToProject, DialogDeleteMemberProject, Utilities, History) {
 	"use strict";
 
 	return BaseController.extend("com.sap.build.standard.mobileEnterpriseProject.controller.EditProject", {
-		onInit: function () {
-			var oViewModel = new JSONModel({
-				busy : false,
-				delay : 0
+		handleRouteMatched: function(oEvent) {
+			var sAppId = "App5bf28417669f870111c4b47c";
+
+			var oParams = {};
+
+			if (oEvent.mParameters.data.context) {
+				this.sContext = oEvent.mParameters.data.context;
+
+			} else {
+				if (this.getOwnerComponent().getComponentData()) {
+					var patternConvert = function(oParam) {
+						if (Object.keys(oParam).length !== 0) {
+							for (var prop in oParam) {
+								if (prop !== "sourcePrototype") {
+									return prop + "(" + oParam[prop][0] + ")";
+								}
+							}
+						}
+					};
+
+					this.sContext = patternConvert(this.getOwnerComponent().getComponentData().startupParameters);
+
+				}
+			}
+
+			var oPath;
+
+			if (this.sContext) {
+				oPath = {
+					path: "/" + this.sContext,
+					parameters: oParams
+				};
+				this.getView().bindObject(oPath);
+			}
+
+		},
+		_onButtonPress: function(oEvent) {
+
+			var oBindingContext = oEvent.getSource().getBindingContext();
+
+			return new Promise(function(fnResolve) {
+
+				this.doNavigate("Page1", oBindingContext, fnResolve, "");
+			}.bind(this)).catch(function(err) {
+				if (err !== undefined) {
+					MessageBox.error(err.message);
+				}
 			});
 
-			this.oRouter.getRouter("editProject").attachPatternMatched(this._onObjectMatched, this);
-
-			this.setModel(oViewModel, "detailView");
-
-			this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
 		},
-		_onObjectMatched : function (oEvent) {
-				var sObjectId =  oEvent.getParameter("arguments").objectId;
-			//	this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
-				this.getModel().metadataLoaded().then( function() {
-					var sObjectPath = this.getModel().createKey("ProjectInfoSet", {
-						Id :  sObjectId
-					});
-					this._bindView("/" + sObjectPath);
-				}.bind(this));
-			},
-				_bindView : function (sObjectPath) {
-				// Set busy indicator during view binding
-				var oViewModel = this.getModel("detailView");
+		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
+			var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
+			var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
 
-				// If the view was not bound yet its not busy, only if the binding requests data it is set to busy again
-				oViewModel.setProperty("/busy", false);
-
-				this.getView().bindElement({
-					path : sObjectPath,
-					events: {
-						change : this._onBindingChange.bind(this),
-						dataRequested : function () {
-							oViewModel.setProperty("/busy", true);
-						},
-						dataReceived: function () {
-							oViewModel.setProperty("/busy", false);
-						}
-					}
-				});
-			},
-				_onMetadataLoaded : function () {
-				// Store original busy indicator delay for the detail view
-				var iOriginalViewBusyDelay = this.getView().getBusyIndicatorDelay(),
-					oViewModel = this.getModel("detailView");
-
-				// Make sure busy indicator is displayed immediately when
-				// detail view is displayed for the first time
-				oViewModel.setProperty("/delay", 0);
-
-				// Binding the view will set it to not busy - so the view is always busy if it is not bound
-				oViewModel.setProperty("/busy", true);
-				// Restore original busy indicator delay for the detail view
-				oViewModel.setProperty("/delay", iOriginalViewBusyDelay);
-			},
-				_onBindingChange : function () {
-				var oView = this.getView(),
-					oElementBinding = oView.getElementBinding();
-
-				// No data for the binding
-				if (!oElementBinding.getBoundContext()) {
-					this.getRouter().getTargets().display("detailObjectNotFound");
-					// if object could not be found, the selection in the master list
-					// does not make sense anymore.
-				//	this.getOwnerComponent().oListSelector.clearMasterListSelection();
-					return;
+			var sEntityNameSet;
+			if (sPath !== null && sPath !== "") {
+				if (sPath.substring(0, 1) === "/") {
+					sPath = sPath.substring(1);
 				}
+				sEntityNameSet = sPath.split("(")[0];
+			}
+			var sNavigationPropertyName;
+			var sMasterContext = this.sMasterContext ? this.sMasterContext : sPath;
 
-				var sPath = oElementBinding.getPath();
-				/*	oResourceBundle = this.getResourceBundle(),
-					oObject = oView.getModel().getObject(sPath),
-					sObjectId = oObject.Id,
-					sObjectName = oObject.Naam,
-					oViewModel = this.getModel("detailView");*/
+			if (sEntityNameSet !== null) {
+				sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet, sRouteName);
+			}
+			if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
+				if (sNavigationPropertyName === "") {
+					this.oRouter.navTo(sRouteName, {
+						context: sPath,
+						masterContext: sMasterContext
+					}, false);
+				} else {
+					oModel.createBindingContext(sNavigationPropertyName, oBindingContext, null, function(bindingContext) {
+						if (bindingContext) {
+							sPath = bindingContext.getPath();
+							if (sPath.substring(0, 1) === "/") {
+								sPath = sPath.substring(1);
+							}
+						} else {
+							sPath = "undefined";
+						}
 
-				this.getOwnerComponent().oListSelector.selectAListItem(sPath);
+						// If the navigation is a 1-n, sPath would be "undefined" as this is not supported in Build
+						if (sPath === "undefined") {
+							this.oRouter.navTo(sRouteName);
+						} else {
+							this.oRouter.navTo(sRouteName, {
+								context: sPath,
+								masterContext: sMasterContext
+							}, false);
+						}
+					}.bind(this));
+				}
+			} else {
+				this.oRouter.navTo(sRouteName);
+			}
 
-			
-			},
-			
-					onPress: function (oEvent) {
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("createTeamLid");
+			if (typeof fnPromiseResolve === "function") {
+				fnPromiseResolve();
+			}
+
 		},
+		_onButtonPress1: function() {
 
-				
+			var sDialogName = "DialogAddMemberToProject";
+			this.mDialogs = this.mDialogs || {};
+			var oDialog = this.mDialogs[sDialogName];
+
+			if (!oDialog) {
+				oDialog = new DialogAddMemberToProject(this.getView());
+				this.mDialogs[sDialogName] = oDialog;
+
+				// For navigation.
+				oDialog.setRouter(this.oRouter);
+			}
+			oDialog.open();
+
+		},
+		_onButtonPress2: function() {
+
+			var sDialogName = "DialogDeleteMemberProject";
+			this.mDialogs = this.mDialogs || {};
+			var oDialog = this.mDialogs[sDialogName];
+
+			if (!oDialog) {
+				oDialog = new DialogDeleteMemberProject(this.getView());
+				this.mDialogs[sDialogName] = oDialog;
+
+				// For navigation.
+				oDialog.setRouter(this.oRouter);
+			}
+			oDialog.open();
+
+		},
+		onInit: function() {
+			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			this.oRouter.getTarget("Page2").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+
+		}
 	});
 }, /* bExport= */ true);
